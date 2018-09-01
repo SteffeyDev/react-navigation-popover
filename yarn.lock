@@ -2933,9 +2933,9 @@ react-is@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.2.tgz#84891b56c2b6d9efdee577cc83501dfc5ecead88"
 
-react-native-popover-view@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/react-native-popover-view/-/react-native-popover-view-1.0.7.tgz#1689155d0dd788632b301cb3a9ba446a1aec5732"
+react-native-popover-view@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-popover-view/-/react-native-popover-view-1.0.8.tgz#f273700778fa77521603b288bc93b3b739a9987d"
 
 react-native@^0.51.0:
   version "0.51.1"
