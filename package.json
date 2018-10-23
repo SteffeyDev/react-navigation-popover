@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-popover",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A <Popover /> component for react-native",
   "main": "src/index.js",
   "author": "Peter Steffey <steffeydev@icloud.com> (https://github.com/steffeydev)",
@@ -34,6 +34,6 @@
     "react-navigation-stack": ">=0.2.2"
   },
   "dependencies": {
-    "react-native-popover-view": "1.0.8"
+    "react-native-popover-view": "^1.0.9"
   }
 }
