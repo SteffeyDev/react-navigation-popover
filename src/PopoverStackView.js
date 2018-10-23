@@ -1,6 +1,6 @@
 import React from 'react';
 import { NativeModules } from 'react-native';
-import { popoverTransitionConfig } from './Utility';
+import { popoverTransitionConfig, isTablet } from './Utility';
 import {
   StackViewLayout,
   Transitioner,

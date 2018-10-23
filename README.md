@@ -104,14 +104,14 @@ let stack = createPopoverStackNavigator({
 
 #### 2) Define when Popover should be shown
 
-By default, views will be shown in a Popover view on tablets, and normally on phones.  To override this behavior, you can pass the `showInPopover` prop to the class returned by `createPopoverStackNavigator`:
+By default, views will be shown in a Popover view on tablets, and normally on phones.  To override this behavior, you can pass the `showInPopover` option in the `screenProps` to the class returned by `createPopoverStackNavigator`:
 
 ```jsx
 let Stack = createPopoverStackNavigator(...);
 ...
   render() {
     let smallScreen = this.props.width < 500;
-    return <Stack showInPopover={!smallScreen} />;
+    return <Stack screenProps={{ showInPopover: !smallScreen }} />;
   }
 ```
 
@@ -230,7 +230,7 @@ export default class MoreStackWrapper extends Component {
       <View
         style={styles.fullScreenViewStyle} 
         onLayout={evt => this.setState({width: evt.nativeEvent.layout.width})}>
-        <MoreStack showInPopover={DeviceInfo.isTablet() && this.state.width > 500} />
+        <MoreStack screenProps={{ showInPopover: DeviceInfo.isTablet() && this.state.width > 500 }} />
       </View>
     );
   }
