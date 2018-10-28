@@ -30,8 +30,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-navigation": ">=2.0",
-    "react-navigation-stack": ">=0.2.2"
+    "react-navigation": "^2.11.2",
+    "react-navigation-stack": "^0.2.2"
   },
   "dependencies": {
     "react-native-popover-view": "^1.0.9"

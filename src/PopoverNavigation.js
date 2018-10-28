@@ -22,7 +22,7 @@ export default class PopoverNavigation extends Component {
     if (this.props.showInPopover)
       this.setState({visible: false});
     else
-      this.props.children.props.navigation.goBack();
+      this.previousGoBack();
   }
 
   componentDidMount() {
@@ -40,7 +40,14 @@ export default class PopoverNavigation extends Component {
   }
 
   render() {
-    const child = React.cloneElement(this.props.children, {goBack: () => this.goBack()});
+    const children = Array.isArray(this.props.children) ? this.props.children : [this.props.children];
+    const modifiedChildren = children.map((child, i) => {
+        let modifiedNavigation = child.props.navigation;
+        if (!this.previousGoBack)
+          this.previousGoBack = child.props.navigation.goBack;
+        modifiedNavigation.goBack = this.goBack.bind(this);
+        return React.cloneElement(child, Object.assign({ key: i }, child.props, { navigation: modifiedNavigation }))
+    });
     const { contentContainerStyle, popoverStyle, arrowStyle, placement, showInModal, layoutRtl, showBackground, getRegisteredView, displayArea, showInPopover, backgroundColor, animationConfig, verticalOffset } = this.props;
 
     if (showInPopover) {
@@ -56,16 +63,16 @@ export default class PopoverNavigation extends Component {
           isVisible={this.state.visible}
           onClose={() => this.goBack()}
           displayArea={displayArea || this.getParam('displayArea')}
-          doneClosingCallback={() => this.props.children.props.navigation.goBack()}
+          doneClosingCallback={() => this.previousGoBack()}
           verticalOffset={verticalOffset}
           fromView={getRegisteredView() || this.getParam('showFromView')}
           calculateRect={this.getParam('calculateRect')}
           fromRect={this.getParam('fromRect')}>
-          <View style={{backgroundColor, ...contentContainerStyle}}>{child}</View>
+          <View style={{backgroundColor, ...contentContainerStyle}}>{modifiedChildren}</View>
         </Popover>
       )
     } else {
-      return <View style={{backgroundColor, flex: 1}}>{child}</View>;
+      return <View style={{backgroundColor, flex: 1}}>{this.props.children}</View>;
     }
   }
 }

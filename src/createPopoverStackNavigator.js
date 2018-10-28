@@ -15,7 +15,18 @@ import {
   createNavigationContainer
 } from 'react-navigation';
 
-export let withPopoverNavigation = (Comp, popoverOptions) => props => <PopoverNavigation {...popoverOptions} showInPopover={popoverOptions.isFirstView ? false : props.screenProps.showInPopover}><Comp {...props} /></PopoverNavigation>;
+export function withPopoverNavigation(Comp, popoverOptions) {
+  class PopoverNavigationInner extends React.Component {
+    static router = Comp.router
+    render() {
+      let props = Comp.router ? { navigation: this.props.navigation, screenProps: this.props.screenProps } : this.props;
+      return (
+        <PopoverNavigation {...popoverOptions} showInPopover={popoverOptions.isFirstView ? false : props.screenProps.showInPopover}><Comp {...props} /></PopoverNavigation>
+      )
+    }
+  }
+  return PopoverNavigationInner;
+}
 
 function createPopoverStackNavigator(routeConfigMap, stackConfig = {}) {
   const {
