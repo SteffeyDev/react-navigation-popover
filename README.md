@@ -40,7 +40,8 @@ yarn add react-navigation-popover
 
 ### Support
 
-* `react-navigation-popover` v1.0.x supports `react-navigation` v2.12.0 and forwards
+* `react-navigation-popover` v1.1.x supports `react-navigation` v3.0.0 and forwards
+* `react-navigation-popover` v1.0.x supports `react-navigation` v2.12.0 to v2.14.2
 * For older versions of `react-navigation`, instead install `react-native-popover-view` v1.0.5 or ealier, and use the documentation at that repository for the corresponding tag
 
 If `react-navigation` changes in a future versions and breaks compatibility with this library, please open an issue.
