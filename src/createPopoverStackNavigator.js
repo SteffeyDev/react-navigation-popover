@@ -8,12 +8,8 @@ import PopoverNavigation from './PopoverNavigation'
 import PopoverStackView from './PopoverStackView';
 
 // RN Imports
-import {
-  createNavigator,
-  createKeyboardAwareNavigator,
-  StackRouter,
-  createNavigationContainer
-} from 'react-navigation';
+import { StackRouter, createNavigator } from '@react-navigation/core';
+import { createKeyboardAwareNavigator } from '@react-navigation/native';
 
 export function withPopoverNavigation(Comp, popoverOptions) {
   class PopoverNavigationInner extends React.Component {
@@ -29,24 +25,6 @@ export function withPopoverNavigation(Comp, popoverOptions) {
 }
 
 function createPopoverStackNavigator(routeConfigMap, stackConfig = {}) {
-  const {
-    initialRouteKey,
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions,
-    disableKeyboardHandling,
-    getCustomActionCreators,
-  } = stackConfig;
-
-  const stackRouterConfig = {
-    initialRouteKey,
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions,
-    getCustomActionCreators,
-  };
 
   let routeKeys = Object.keys(routeConfigMap);
   let newRouteConfigMap = {};
@@ -86,11 +64,13 @@ function createPopoverStackNavigator(routeConfigMap, stackConfig = {}) {
     );
   });
 
-  const router = StackRouter(newRouteConfigMap, stackRouterConfig);
+  stackConfig.transparentCard = true;
+
+  const router = StackRouter(newRouteConfigMap, stackConfig);
 
   // Create a navigator with PopoverStackView as the view
   let Navigator = createNavigator(PopoverStackView, router, stackConfig);
-  if (!disableKeyboardHandling) {
+  if (!stackConfig.disableKeyboardHandling) {
     Navigator = createKeyboardAwareNavigator(Navigator, stackConfig);
   }
 

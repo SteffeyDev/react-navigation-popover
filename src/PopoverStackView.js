@@ -6,7 +6,7 @@ import {
   Transitioner,
   StackViewTransitionConfigs as TransitionConfigs
 } from 'react-navigation-stack';
-import { StackActions } from 'react-navigation';
+import { StackActions } from '@react-navigation/core';
 
 const NativeAnimatedModule =
   NativeModules && NativeModules.NativeAnimatedModule;
