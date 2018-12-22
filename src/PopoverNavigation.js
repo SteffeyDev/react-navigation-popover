@@ -1,7 +1,6 @@
 import Popover from 'react-native-popover-view'
-import { popoverTransitionConfig, Rect, isIOS, isTablet } from './Utility'
 import React, { Component } from 'react'
-import { View, BackHandler, Animated, findNodeHandle, NativeModules, Alert } from 'react-native'
+import { View, BackHandler } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default class PopoverNavigation extends Component {
@@ -25,6 +24,12 @@ export default class PopoverNavigation extends Component {
       this.previousGoBack();
   }
 
+  navigate(...args) {
+    if (this.props.showInPopover)
+      this.setState({visible: false});
+    this.previousNavigate(...args);
+  }
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.backButtonPressed);
     this.setState({visible: true});
@@ -42,11 +47,17 @@ export default class PopoverNavigation extends Component {
   render() {
     const children = Array.isArray(this.props.children) ? this.props.children : [this.props.children];
     const modifiedChildren = children.map((child, i) => {
-        let modifiedNavigation = child.props.navigation;
-        if (!this.previousGoBack)
-          this.previousGoBack = child.props.navigation.goBack;
-        modifiedNavigation.goBack = this.goBack.bind(this);
-        return React.cloneElement(child, Object.assign({ key: i }, child.props, { navigation: modifiedNavigation }))
+      let modifiedNavigation = child.props.navigation;
+
+      if (!this.previousGoBack)
+        this.previousGoBack = child.props.navigation.goBack;
+      modifiedNavigation.goBack = this.goBack.bind(this);
+
+      if (!this.previousNavigate)
+        this.previousNavigate = child.props.navigation.navigate;
+      modifiedNavigation.navigate = this.navigate.bind(this);
+
+      return React.cloneElement(child, Object.assign({ key: i }, child.props, { navigation: modifiedNavigation }))
     });
     const { contentContainerStyle, popoverStyle, arrowStyle, placement, showInModal, layoutRtl, showBackground, getRegisteredView, displayArea, showInPopover, backgroundColor, animationConfig, verticalOffset } = this.props;
 
